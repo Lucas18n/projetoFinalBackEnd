@@ -2,6 +2,7 @@ package org.example.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 public class FormaPagamento  implements Serializable {
@@ -14,16 +15,28 @@ public class FormaPagamento  implements Serializable {
     @Column(name = "FPG_DESCRICAO")
     private String fpgDescricao;
 
-    @Column(name = "FPG_STATUS")
-    private String fpgStatus;
+    @Column(name = "FPG_ATIVO")
+    private String ativo; // Ex: true
+
+    @Column(name = "FPG_PERMISSAO_PARCELA")
+    private Boolean permiteParcelamento; // Ex: true
+
+    @Column(name = "FPG_MAXIMO_PARCELA")
+    private Integer numeroMaximoParcelas; // Ex: 12
+
+    @Column(name = "FPG_TAXA_ADD")
+    private BigDecimal taxaAdicional; // Ex: new BigDecimal("1.99") // 1,99% de taxa
 
     public FormaPagamento() {
     }
 
-    public FormaPagamento(Long fpgId, String fpgDescricao, String fpgStatus) {
+    public FormaPagamento(Long fpgId, String fpgDescricao, String ativo, Boolean permiteParcelamento, Integer numeroMaximoParcelas, BigDecimal taxaAdicional) {
         this.fpgId = fpgId;
         this.fpgDescricao = fpgDescricao;
-        this.fpgStatus = fpgStatus;
+        this.ativo = ativo;
+        this.permiteParcelamento = permiteParcelamento;
+        this.numeroMaximoParcelas = numeroMaximoParcelas;
+        this.taxaAdicional = taxaAdicional;
     }
 
     public Long getFpgId() {
@@ -42,11 +55,35 @@ public class FormaPagamento  implements Serializable {
         this.fpgDescricao = fpgDescricao;
     }
 
-    public String getFpgStatus() {
-        return fpgStatus;
+    public String getAtivo() {
+        return ativo;
     }
 
-    public void setFpgStatus(String fpgStatus) {
-        this.fpgStatus = fpgStatus;
+    public void setAtivo(String ativo) {
+        this.ativo = ativo;
+    }
+
+    public Boolean getPermiteParcelamento() {
+        return permiteParcelamento;
+    }
+
+    public void setPermiteParcelamento(Boolean permiteParcelamento) {
+        this.permiteParcelamento = permiteParcelamento;
+    }
+
+    public Integer getNumeroMaximoParcelas() {
+        return numeroMaximoParcelas;
+    }
+
+    public void setNumeroMaximoParcelas(Integer numeroMaximoParcelas) {
+        this.numeroMaximoParcelas = numeroMaximoParcelas;
+    }
+
+    public BigDecimal getTaxaAdicional() {
+        return taxaAdicional;
+    }
+
+    public void setTaxaAdicional(BigDecimal taxaAdicional) {
+        this.taxaAdicional = taxaAdicional;
     }
 }
