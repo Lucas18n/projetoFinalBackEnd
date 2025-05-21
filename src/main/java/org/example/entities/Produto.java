@@ -37,20 +37,19 @@ public class Produto implements Serializable {
     private String unidadeMedida; // Ex: "Litro"
 
     @Column(name = "PRO_ATIVO")
-    private String ativo; // Ex: true
+    private Boolean ativo; // Ex: true
 
     @Column(name = "PRO_DATA_CAD")
     private LocalDateTime dataCadastro; // Ex: LocalDateTime.now()
 
-    @Column(name = "PRO_DATA_ATU")
-    private LocalDateTime dataAtualizacao; // Ex: LocalDateTime.now()
+
 
     public Produto() {
     }
 
     public Produto(Long proId, String proNome, Double proPrecoCusto, Double proPrecoVenda, Integer quantidadeEstoque,
-                   String categoria, String codigoBarras, String marca, String unidadeMedida, String ativo, LocalDateTime dataCadastro,
-                   LocalDateTime dataAtualizacao) {
+                   String categoria, String codigoBarras, String marca, String unidadeMedida, Boolean ativo, LocalDateTime dataCadastro
+                   ) {
         this.proId = proId;
         this.proNome = proNome;
         this.proPrecoCusto = proPrecoCusto;
@@ -62,7 +61,7 @@ public class Produto implements Serializable {
         this.unidadeMedida = unidadeMedida;
         this.ativo = ativo;
         this.dataCadastro = dataCadastro;
-        this.dataAtualizacao = dataAtualizacao;
+
     }
 
     public Long getProId() {
@@ -137,11 +136,11 @@ public class Produto implements Serializable {
         this.unidadeMedida = unidadeMedida;
     }
 
-    public String getAtivo() {
+    public Boolean getAtivo() {
         return ativo;
     }
 
-    public void setAtivo(String ativo) {
+    public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
     }
 
@@ -153,11 +152,4 @@ public class Produto implements Serializable {
         this.dataCadastro = dataCadastro;
     }
 
-    public LocalDateTime getDataAtualizacao() {
-        return dataAtualizacao;
-    }
-
-    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
-        this.dataAtualizacao = dataAtualizacao;
-    }
 }

@@ -16,7 +16,7 @@ public class FormaPagamento  implements Serializable {
     private String fpgDescricao;
 
     @Column(name = "FPG_ATIVO")
-    private String ativo; // Ex: true
+    private Boolean ativo; // Ex: true
 
     @Column(name = "FPG_PERMISSAO_PARCELA")
     private Boolean permiteParcelamento; // Ex: true
@@ -30,7 +30,7 @@ public class FormaPagamento  implements Serializable {
     public FormaPagamento() {
     }
 
-    public FormaPagamento(Long fpgId, String fpgDescricao, String ativo, Boolean permiteParcelamento, Integer numeroMaximoParcelas, BigDecimal taxaAdicional) {
+    public FormaPagamento(Long fpgId, String fpgDescricao, Boolean ativo, Boolean permiteParcelamento, Integer numeroMaximoParcelas, BigDecimal taxaAdicional) {
         this.fpgId = fpgId;
         this.fpgDescricao = fpgDescricao;
         this.ativo = ativo;
@@ -55,11 +55,11 @@ public class FormaPagamento  implements Serializable {
         this.fpgDescricao = fpgDescricao;
     }
 
-    public String getAtivo() {
+    public Boolean getAtivo() {
         return ativo;
     }
 
-    public void setAtivo(String ativo) {
+    public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
     }
 

@@ -44,7 +44,7 @@ public class ProdutoService {
             produtoSistema.setUnidadeMedida(produto.getUnidadeMedida());
             produtoSistema.setAtivo(produto.getAtivo());
             produtoSistema.setDataCadastro(produto.getDataCadastro());
-            produtoSistema.setDataAtualizacao(produto.getDataAtualizacao());
+
 
 
             repository.save(produtoSistema);
