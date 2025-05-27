@@ -1,6 +1,7 @@
 package org.example.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -9,23 +10,32 @@ public class FormaPagamento  implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FPG_ID")
+    @Column(name = "FPG_ID", nullable = false)
     private Long fpgId;
 
-    @Column(name = "FPG_DESCRICAO")
+    @NotBlank(message = "Descrição é obrigatória")
+    @Size(min = 1, message = "Descrição não pode estar vazia")
+    @Column(name = "FPG_DESCRICAO", nullable = false)
     private String fpgDescricao;
 
-    @Column(name = "FPG_ATIVO")
-    private Boolean ativo; // Ex: true
+    @NotNull(message = "Campo 'ativo' é obrigatório")
+    @Column(name = "FPG_ATIVO", nullable = false)
+    private Boolean ativo;
 
-    @Column(name = "FPG_PERMISSAO_PARCELA")
-    private Boolean permiteParcelamento; // Ex: true
+    @NotNull(message = "Campo 'permiteParcelamento' é obrigatório")
+    @Column(name = "FPG_PERMISSAO_PARCELA", nullable = false)
+    private Boolean permiteParcelamento;
 
-    @Column(name = "FPG_MAXIMO_PARCELA")
-    private Integer numeroMaximoParcelas; // Ex: 12
+    @NotNull(message = "Número máximo de parcelas é obrigatório")
+    @Min(value = 1, message = "Deve ser no mínimo 1 parcela")
+    @Column(name = "FPG_MAXIMO_PARCELA", nullable = false)
+    private Integer numeroMaximoParcelas;
 
-    @Column(name = "FPG_TAXA_ADD")
-    private BigDecimal taxaAdicional; // Ex: new BigDecimal("1.99") // 1,99% de taxa
+    @NotNull(message = "Taxa adicional é obrigatória")
+    @Column(name = "FPG_TAXA_ADD", nullable = false)
+    private BigDecimal taxaAdicional;
+
+
 
     public FormaPagamento() {
     }

@@ -5,13 +5,16 @@ import org.example.services.FormaPagamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/formapagamentos")
+@Validated
 public class FormaPagamentoResource {
 
     @Autowired
@@ -30,10 +33,12 @@ public class FormaPagamentoResource {
     }
 
     @PostMapping
-    public ResponseEntity<FormaPagamento> insert(@RequestBody FormaPagamento formaPagamento) {
+    public ResponseEntity<FormaPagamento> insert(@RequestBody @Valid FormaPagamento formaPagamento) {
         FormaPagamento createdFormaPagamento = formaPagamentoService.insert(formaPagamento);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdFormaPagamento);
     }
+
+
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody FormaPagamento formaPagamento) {
