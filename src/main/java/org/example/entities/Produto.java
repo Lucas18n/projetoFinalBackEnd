@@ -1,6 +1,8 @@
 package org.example.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -12,35 +14,45 @@ public class Produto implements Serializable {
     @Column(name = "PRO_ID")
     private Long proId;
 
-    @Column(name = "PRO_NOME")
+    @NotBlank(message = "Nome é obrigatório")
+    @Column(name = "PRO_NOME", nullable = false)
     private String proNome;
 
-    @Column(name = "PRO_PRECO_CUSTO", precision = 10, scale = 2)
+    @NotNull(message = "Preço de Custo é obrigatório")
+    @Column(name = "PRO_PRECO_CUSTO", precision = 10, scale = 2, nullable = false)
     private Double proPrecoCusto;
 
-    @Column(name = "PRO_PRECO_VENDA", precision = 10, scale = 2)
+    @NotNull(message = "Preço de Venda é obrigatório")
+    @Column(name = "PRO_PRECO_VENDA", precision = 10, scale = 2, nullable = false)
     private Double proPrecoVenda;
 
-    @Column(name = "PRO_QTD_ESTOQUE")
-    private Integer quantidadeEstoque; // Ex: 120
+    @NotNull(message = "Quantidade em estoque é obrigatório")
+    @Column(name = "PRO_QTD_ESTOQUE", nullable = false)
+    private Integer quantidadeEstoque;
 
-    @Column(name = "PRO_CATEGORIA")
-    private String categoria; // Ex: "Bebidas"
+    @NotBlank(message = "Categoria é obrigatória")
+    @Column(name = "PRO_CATEGORIA", nullable = false)
+    private String categoria;
 
-    @Column(name = "PRO_COD_BARRA")
-    private String codigoBarras; // Ex: "7894900011517"
+    @NotBlank(message = "Código de barra é obrigatório")
+    @Column(name = "PRO_COD_BARRA", nullable = false)
+    private String codigoBarras;
 
-    @Column(name = "PRO_MARCA")
-    private String marca; // Ex: "Coca-Cola"
+    @NotBlank(message = "Marca é obrigatória")
+    @Column(name = "PRO_MARCA", nullable = false)
+    private String marca;
 
-    @Column(name = "PRO_UNIDADE_MED")
-    private String unidadeMedida; // Ex: "Litro"
+    @NotBlank(message = "Unidade de Medida é obrigatória")
+    @Column(name = "PRO_UNIDADE_MED", nullable = false)
+    private String unidadeMedida;
 
-    @Column(name = "PRO_ATIVO")
-    private Boolean ativo; // Ex: true
+    @NotNull(message = "Status é obrigatório")
+    @Column(name = "PRO_ATIVO", nullable = false)
+    private Boolean ativo;
 
-    @Column(name = "PRO_DATA_CAD")
-    private LocalDateTime dataCadastro; // Ex: LocalDateTime.now()
+    @NotNull(message = "Data de Cadastro é obrigatória")
+    @Column(name = "PRO_DATA_CAD", nullable = false)
+    private LocalDateTime dataCadastro;
 
 
 
