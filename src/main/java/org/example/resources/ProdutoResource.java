@@ -1,5 +1,6 @@
 package org.example.resources;
 
+import org.example.DTO.CategoriaProdutoDTO;
 import org.example.entities.Produto;
 import org.example.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,13 @@ public class ProdutoResource {
         List<Produto> funcoes = produtoService.getAll();
         return ResponseEntity.ok(funcoes);
     }
+
+    @GetMapping("/quantidade-por-categoria")
+    public ResponseEntity<List<CategoriaProdutoDTO>> getQuantidadePorCategoria() {
+        List<CategoriaProdutoDTO> dados = produtoService.getQuantidadePorCategoria();
+        return ResponseEntity.ok(dados);
+    }
+
 
 
     @GetMapping("/{id}")

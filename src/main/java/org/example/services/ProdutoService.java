@@ -1,5 +1,6 @@
 package org.example.services;
 
+import org.example.DTO.CategoriaProdutoDTO;
 import org.example.entities.Produto;
 import org.example.repositories.ProdutoRepository;
 import org.example.services.exeptions.ResourceNotFoundException;
@@ -20,6 +21,11 @@ public class ProdutoService {
     public List<Produto> getAll() {
         return repository.findAll();
     }
+
+    public List<CategoriaProdutoDTO> getQuantidadePorCategoria() {
+        return repository.findQuantidadePorCategoria();
+    }
+
 
     public Produto findById(Long id) {
         Optional<Produto> obj = repository.findById(id);
