@@ -1,6 +1,10 @@
 package org.example.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -10,6 +14,11 @@ public class Endereco implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "END_ID")
     private Long endId;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "END_CLI_ID")
+    private Cliente endCliente;
 
     @Column(name = "END_RUA")
     private String endRua;
@@ -26,16 +35,24 @@ public class Endereco implements Serializable {
     @Column(name = "END_ESTADO", length = 2)
     private String endEstado;
 
+    @NotBlank(message = "País é obrigatório")
+    @Size(max = 60, message = "País deve ter no máximo 60 caracteres")
+    @Column(name = "END_PAIS", nullable = false, length = 60)
+    private String endPais;
+
     public Endereco() {
     }
 
-    public Endereco(Long endId, String endRua, String endNumero, String endCidade, String endCep, String endEstado) {
+
+    public Endereco(Long endId, Cliente endCliente, String endRua, String endNumero, String endCidade, String endCep, String endEstado, String endPais) {
         this.endId = endId;
+        this.endCliente = endCliente;
         this.endRua = endRua;
         this.endNumero = endNumero;
         this.endCidade = endCidade;
         this.endCep = endCep;
         this.endEstado = endEstado;
+        this.endPais = endPais;
     }
 
     public Long getEndId() {
@@ -84,5 +101,21 @@ public class Endereco implements Serializable {
 
     public void setEndEstado(String endEstado) {
         this.endEstado = endEstado;
+    }
+
+    public Cliente getEndCliente() {
+        return endCliente;
+    }
+
+    public void setEndCliente(Cliente endCliente) {
+        this.endCliente = endCliente;
+    }
+
+    public String getEndPais() {
+        return endPais;
+    }
+
+    public void setEndPais(String endPais) {
+        this.endPais = endPais;
     }
 }

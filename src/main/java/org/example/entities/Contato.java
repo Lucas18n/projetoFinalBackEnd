@@ -1,6 +1,9 @@
 package org.example.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 @Entity
@@ -11,6 +14,12 @@ public class Contato implements Serializable {
     @Column(name = "CON_ID")
     private Long conId;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "CON_CLI_ID")
+    private Cliente conCliente;
+
+    @Pattern(regexp = "\\(\\d{2}\\)\\d{5}-\\d{4}", message = "Celular deve estar no formato (xx)xxxxx-xxxx")
     @Column(name = "CON_CELULAR", length = 14)
     private String conCelular;
 
@@ -23,11 +32,20 @@ public class Contato implements Serializable {
     public Contato() {
     }
 
-    public Contato(Long conId, String conCelular, String conTelefoneComercial, String conEmail) {
+    public Contato(Long conId, Cliente conCliente, String conCelular, String conTelefoneComercial, String conEmail) {
         this.conId = conId;
+        this.conCliente = conCliente;
         this.conCelular = conCelular;
         this.conTelefoneComercial = conTelefoneComercial;
         this.conEmail = conEmail;
+    }
+
+    public Cliente getConCliente() {
+        return conCliente;
+    }
+
+    public void setConCliente(Cliente conCliente) {
+        this.conCliente = conCliente;
     }
 
     public Long getConId() {
