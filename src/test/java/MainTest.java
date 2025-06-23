@@ -7,11 +7,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class MainTest {
 
     public static void main(String[] args) {
-        WebDriverManager.chromedriver().browserVersion("137.0.7151.119").setup();
+        WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -26,7 +27,7 @@ public class MainTest {
             btnNovoProduto.click();
 
             // Preenche os inputs pelo atributo name
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("proNome"))).sendKeys("Produto Teste");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("proNome"))).sendKeys("Produto");
             driver.findElement(By.name("proPrecoCusto")).sendKeys("10.50");
             driver.findElement(By.name("proPrecoVenda")).sendKeys("20.00");
             driver.findElement(By.name("quantidadeEstoque")).sendKeys("100");
@@ -34,14 +35,20 @@ public class MainTest {
             driver.findElement(By.name("marca")).sendKeys("Marca Teste");
             driver.findElement(By.name("unidadeMedida")).sendKeys("Un");
 
-            // Seleciona a opção do mat-select "Categoria"
-            WebElement categoriaSelect = driver.findElement(By.cssSelector("mat-form-field mat-select[name='categoria']"));
+            // Clica no select de Categoria
+            WebElement categoriaSelect = driver.findElement(By.name("categoria"));
             categoriaSelect.click();
 
-            // Espera o menu abrir e clica na primeira opção
-            WebElement primeiraCategoria = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.cssSelector("mat-option")));
-            primeiraCategoria.click();
+// Aguarda o carregamento das opções
+            List<WebElement> opcoesCategoria = wait.until(
+                    ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("mat-option")));
+
+            if (opcoesCategoria.size() >= 2) {
+                opcoesCategoria.get(1).click(); // Segunda opção (índice 1)
+            } else {
+                System.out.println("Não há duas categorias disponíveis.");
+            }
+
 
             // Seleciona a opção do mat-select "Produto Ativo?"
             WebElement ativoSelect = driver.findElement(By.cssSelector("mat-form-field mat-select[name='ativo']"));
@@ -52,12 +59,9 @@ public class MainTest {
                     By.xpath("//mat-option[.//span[contains(text(),'Sim')]]")));
             opcaoSim.click();
 
-            // Data (campo de data pode ser complexo, se aceitar texto direto)
-            WebElement dataInput = driver.findElement(By.name("dataCadastro"));
-            dataInput.sendKeys("21/06/2025");  // Formato pode variar conforme localidade
 
             // Clica no botão Salvar
-            WebElement btnSalvar = driver.findElement(By.xpath("//button[contains(text(),'Salvar')]"));
+            WebElement btnSalvar = driver.findElement(By.xpath("/html/body/app-root/app-nav/mat-sidenav-container/mat-sidenav-content/app-product-create/mat-card/button[1]"));
             btnSalvar.click();
 
             // Só pra ver o resultado antes de fechar

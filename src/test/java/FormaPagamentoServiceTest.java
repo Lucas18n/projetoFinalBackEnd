@@ -44,7 +44,6 @@ class FormaPagamentoServiceTest {
         );
     }
 
-
     @Test
     void testGetAll() {
         //Simula o retorno de repository.findAll() com uma lista contendo formaPagamento
