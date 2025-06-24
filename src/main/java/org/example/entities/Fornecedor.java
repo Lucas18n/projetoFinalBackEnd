@@ -14,14 +14,15 @@ public class Fornecedor implements Serializable {
     @Column(name = "FOR_ID")
     private Long forId;
 
-
+    @NotBlank
     @Column(name = "FOR_NOME_FANTASIA", nullable = false)
     private String forNomeFantasia;
 
-
+    @NotBlank
     @Column(name = "FOR_CNPJ", nullable = false, length = 14)
     private String forCnpj;
 
+    @NotBlank
     @Size(max = 100)
     @Column(name = "FOR_RAZAO_SOCIAL")
     private String forRazaoSocial;

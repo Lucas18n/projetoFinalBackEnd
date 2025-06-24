@@ -14,6 +14,10 @@ public class Produto implements Serializable {
     @Column(name = "PRO_ID")
     private Long proId;
 
+    @ManyToOne
+    @JoinColumn(name = "FOR_ID")
+    private Fornecedor idFornecedor;
+
     @NotBlank(message = "Nome é obrigatório")
     @Column(name = "PRO_NOME", nullable = false)
     private String proNome;
@@ -59,10 +63,9 @@ public class Produto implements Serializable {
     public Produto() {
     }
 
-    public Produto(Long proId, String proNome, Double proPrecoCusto, Double proPrecoVenda, Integer quantidadeEstoque,
-                   String categoria, String codigoBarras, String marca, String unidadeMedida, Boolean ativo, LocalDateTime dataCadastro
-                   ) {
+    public Produto(Long proId, Fornecedor idFornecedor, String proNome, Double proPrecoCusto, Double proPrecoVenda, Integer quantidadeEstoque, String categoria, String codigoBarras, String marca, String unidadeMedida, Boolean ativo, LocalDateTime dataCadastro) {
         this.proId = proId;
+        this.idFornecedor = idFornecedor;
         this.proNome = proNome;
         this.proPrecoCusto = proPrecoCusto;
         this.proPrecoVenda = proPrecoVenda;
@@ -73,7 +76,14 @@ public class Produto implements Serializable {
         this.unidadeMedida = unidadeMedida;
         this.ativo = ativo;
         this.dataCadastro = dataCadastro;
+    }
 
+    public Fornecedor getIdFornecedor() {
+        return idFornecedor;
+    }
+
+    public void setIdFornecedor(Fornecedor idFornecedor) {
+        this.idFornecedor = idFornecedor;
     }
 
     public Long getProId() {

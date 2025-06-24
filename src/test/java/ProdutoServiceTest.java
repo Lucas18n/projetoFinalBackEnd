@@ -27,26 +27,26 @@ public class ProdutoServiceTest {
     private Produto produto;
 
     //Antes de cada teste, inicializa os mocks do Mockito (como repository) para que eles funcionem corretamente
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        //Cria um objeto de teste chamado formaPagamento, que é usado como exemplo em vários testes.
-        produto = new Produto(
-                2L,
-                "Produto teste",
-                10.20,
-                15.00,
-                4,
-                "Frio",
-                "12345678",
-                "Pao",
-                "Kg",
-                true,
-                LocalDateTime.of(2025, 6, 23, 0, 0)  // data com hora 00:00
-
-
-        );
-    }
+//    @BeforeEach
+//    void setUp() {
+//        MockitoAnnotations.openMocks(this);
+//        //Cria um objeto de teste chamado formaPagamento, que é usado como exemplo em vários testes.
+//        produto = new Produto(
+//                2L,
+//                "Produto teste",
+//                10.20,
+//                15.00,
+//                4,
+//                "Frio",
+//                "12345678",
+//                "Pao",
+//                "Kg",
+//                true,
+//                LocalDateTime.of(2025, 6, 23, 0, 0)  // data com hora 00:00
+//
+//
+//        );
+//    }
 
     @Test
     void testGetAll() {

@@ -1,11 +1,15 @@
 package org.example.DTO;
 
+import java.time.LocalDateTime;
+
 public class ClienteDTO {
 
     private Long cliId;
     private String cliNome;
     private String cliCpf;
-    private String cliStatus;
+    private String cliformaPagamento;
+    private Boolean cliAtivo;
+    private LocalDateTime dataNascimento;
 
     // Endereco
     private String endRua;
@@ -47,12 +51,28 @@ public class ClienteDTO {
         this.cliCpf = cliCpf;
     }
 
-    public String getCliStatus() {
-        return cliStatus;
+    public String getCliformaPagamento() {
+        return cliformaPagamento;
     }
 
-    public void setCliStatus(String cliStatus) {
-        this.cliStatus = cliStatus;
+    public void setCliformaPagamento(String cliformaPagamento) {
+        this.cliformaPagamento = cliformaPagamento;
+    }
+
+    public Boolean getCliAtivo() {
+        return cliAtivo;
+    }
+
+    public void setCliAtivo(Boolean cliAtivo) {
+        this.cliAtivo = cliAtivo;
+    }
+
+    public LocalDateTime getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDateTime dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public String getEndRua() {

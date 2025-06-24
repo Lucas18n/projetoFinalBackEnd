@@ -40,9 +40,7 @@ public class Endereco implements Serializable {
     @Column(name = "END_ESTADO", length = 50)
     private String endEstado;
 
-    @NotBlank(message = "País é obrigatório")
-    @Size(max = 60, message = "País deve ter no máximo 60 caracteres")
-    @Column(name = "END_PAIS", nullable = false, length = 60)
+    @Column(name = "END_PAIS", length = 60)
     private String endPais;
 
     public Endereco() {
