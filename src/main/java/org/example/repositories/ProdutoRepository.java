@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
-    @Query("SELECT p.categoria AS categoria, COUNT(p) AS quantidade FROM Produto p GROUP BY p.categoria")
+    @Query("SELECT p.categoria AS categoria, SUM(p.quantidadeEstoque) AS quantidade FROM Produto p GROUP BY p.categoria")
     List<CategoriaProdutoDTO> findQuantidadePorCategoria();
+
 }

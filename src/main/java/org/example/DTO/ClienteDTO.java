@@ -7,7 +7,8 @@ public class ClienteDTO {
     private Long cliId;
     private String cliNome;
     private String cliCpf;
-    private String cliformaPagamento;
+    private String cliProfissao;
+    private String cliEstCivil;
     private Boolean cliAtivo;
     private LocalDateTime dataNascimento;
 
@@ -51,12 +52,20 @@ public class ClienteDTO {
         this.cliCpf = cliCpf;
     }
 
-    public String getCliformaPagamento() {
-        return cliformaPagamento;
+    public String getCliProfissao() {
+        return cliProfissao;
     }
 
-    public void setCliformaPagamento(String cliformaPagamento) {
-        this.cliformaPagamento = cliformaPagamento;
+    public void setCliProfissao(String cliProfissao) {
+        this.cliProfissao = cliProfissao;
+    }
+
+    public String getCliEstCivil() {
+        return cliEstCivil;
+    }
+
+    public void setCliEstCivil(String cliEstCivil) {
+        this.cliEstCivil = cliEstCivil;
     }
 
     public Boolean getCliAtivo() {

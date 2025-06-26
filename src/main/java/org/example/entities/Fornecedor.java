@@ -27,6 +27,19 @@ public class Fornecedor implements Serializable {
     @Column(name = "FOR_RAZAO_SOCIAL")
     private String forRazaoSocial;
 
+    @NotBlank
+    @Size(max = 100)
+    @Column(name = "FOR_RESPONSAVEL")
+    private String forResponsavel;
+
+
+    @Size(max = 100)
+    @Column(name = "FOR_TIPO_EMPRESA")
+    private String ForTipoEmpresa;
+
+    @Column(name = "FOR_ATIVO", nullable = false)
+    private Boolean forAtivo;
+
     // Relação com Endereço
     @OneToMany(mappedBy = "endFornecedor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Endereco> enderecos;
@@ -38,14 +51,43 @@ public class Fornecedor implements Serializable {
     // Construtores
     public Fornecedor() {}
 
-    public Fornecedor(Long forId, String forNomeFantasia, String forCnpj, String forRazaoSocial) {
+
+    public Fornecedor(Long forId, String forNomeFantasia, String forCnpj, String forRazaoSocial, String forResponsavel, String forTipoEmpresa, Boolean forAtivo) {
         this.forId = forId;
         this.forNomeFantasia = forNomeFantasia;
         this.forCnpj = forCnpj;
         this.forRazaoSocial = forRazaoSocial;
+        this.forResponsavel = forResponsavel;
+        ForTipoEmpresa = forTipoEmpresa;
+        this.forAtivo = forAtivo;
+    }
+// Getters e Setters
+
+
+    public Boolean getForAtivo() {
+        return forAtivo;
     }
 
-    // Getters e Setters
+    public void setForAtivo(Boolean forAtivo) {
+        this.forAtivo = forAtivo;
+    }
+
+    public String getForTipoEmpresa() {
+        return ForTipoEmpresa;
+    }
+
+    public void setForTipoEmpresa(String forTipoEmpresa) {
+        ForTipoEmpresa = forTipoEmpresa;
+    }
+
+    public String getForResponsavel() {
+        return forResponsavel;
+    }
+
+    public void setForResponsavel(String forResponsavel) {
+        this.forResponsavel = forResponsavel;
+    }
+
     public Long getForId() {
         return forId;
     }

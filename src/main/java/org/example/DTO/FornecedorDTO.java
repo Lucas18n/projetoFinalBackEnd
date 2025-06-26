@@ -6,6 +6,9 @@ public class FornecedorDTO {
     private String forNomeFantasia;
     private String forCnpj;
     private String forRazaoSocial;
+    private String forResponsavel;
+    private String ForTipoEmpresa;
+    private Boolean forAtivo;
 
 
 
@@ -31,6 +34,30 @@ public class FornecedorDTO {
 
     public void setForId(Long forId) {
         this.forId = forId;
+    }
+
+    public Boolean getForAtivo() {
+        return forAtivo;
+    }
+
+    public void setForAtivo(Boolean forAtivo) {
+        this.forAtivo = forAtivo;
+    }
+
+    public String getForTipoEmpresa() {
+        return ForTipoEmpresa;
+    }
+
+    public void setForTipoEmpresa(String forTipoEmpresa) {
+        ForTipoEmpresa = forTipoEmpresa;
+    }
+
+    public String getForResponsavel() {
+        return forResponsavel;
+    }
+
+    public void setForResponsavel(String forResponsavel) {
+        this.forResponsavel = forResponsavel;
     }
 
     public String getForNomeFantasia() {

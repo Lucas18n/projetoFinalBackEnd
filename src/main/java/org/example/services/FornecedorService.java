@@ -87,7 +87,10 @@ public class FornecedorService {
                 null,
                 objDto.getForNomeFantasia(),
                 objDto.getForCnpj(),
-                objDto.getForRazaoSocial()
+                objDto.getForRazaoSocial(),
+                objDto.getForResponsavel(),
+                objDto.getForTipoEmpresa(),
+                objDto.getForAtivo()
         );
 
         // Inicializa as listas para evitar NullPointerException
@@ -117,6 +120,9 @@ public class FornecedorService {
         dto.setForNomeFantasia(obj.getForNomeFantasia());
         dto.setForCnpj(obj.getForCnpj());
         dto.setForRazaoSocial(obj.getForRazaoSocial());
+        dto.setForResponsavel(obj.getForResponsavel());
+        dto.setForTipoEmpresa(obj.getForTipoEmpresa());
+        dto.setForAtivo(obj.getForAtivo());
 
         // Supondo que só exista um endereço por fornecedor
         if (obj.getEnderecos() != null && !obj.getEnderecos().isEmpty()) {

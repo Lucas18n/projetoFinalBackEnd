@@ -30,24 +30,44 @@ public class Cliente implements Serializable {
     @Column(name = "CLI_DATA_NAS", nullable = false)
     private LocalDateTime dataNascimento;
 
-    @Column(name = "CLI_FORMA_PAG", nullable = false)
-    private String cliformaPagamento;
-
     @Column(name = "CLI_ATIVO", nullable = false)
     private Boolean cliAtivo;
+
+    @Column(name = "CLI_PROFISSAO", nullable = false)
+    private String cliProfissao;
+
+    @Column(name = "CLI_EST_CIVIL", nullable = false)
+    private String cliEstCivil;
 
 
 
     public Cliente() {
     }
 
-    public Cliente(Long cliId, String cliNome, String cliCpf, LocalDateTime dataNascimento, String cliformaPagamento, Boolean cliAtivo) {
+    public Cliente(Long cliId, String cliNome, String cliCpf, LocalDateTime dataNascimento, Boolean cliAtivo, String cliProfissao, String cliEstCivil) {
         this.cliId = cliId;
         this.cliNome = cliNome;
         this.cliCpf = cliCpf;
         this.dataNascimento = dataNascimento;
-        this.cliformaPagamento = cliformaPagamento;
         this.cliAtivo = cliAtivo;
+        this.cliProfissao = cliProfissao;
+        this.cliEstCivil = cliEstCivil;
+    }
+
+    public String getCliProfissao() {
+        return cliProfissao;
+    }
+
+    public void setCliProfissao(String cliProfissao) {
+        this.cliProfissao = cliProfissao;
+    }
+
+    public String getCliEstCivil() {
+        return cliEstCivil;
+    }
+
+    public void setCliEstCivil(String cliEstCivil) {
+        this.cliEstCivil = cliEstCivil;
     }
 
     public LocalDateTime getDataNascimento() {
@@ -64,14 +84,6 @@ public class Cliente implements Serializable {
 
     public void setCliAtivo(Boolean cliAtivo) {
         this.cliAtivo = cliAtivo;
-    }
-
-    public String getCliformaPagamento() {
-        return cliformaPagamento;
-    }
-
-    public void setCliformaPagamento(String cliformaPagamento) {
-        this.cliformaPagamento = cliformaPagamento;
     }
 
     public Long getCliId() {
