@@ -55,8 +55,8 @@ public class ClienteService {
             entity.setDataNascimento(objDto.getDataNascimento());
 
 
-            //Atualiza o endereço do cliente
-            Endereco endereco = entity.getEnderecos().get(0);
+            // Atualiza o endereço do cliente (pega o primeiro endereço do Set)
+            Endereco endereco = entity.getEnderecos().iterator().next();
 
             //Assumindo que há apenas um endereço por cliente
             endereco.setEndRua(objDto.getEndRua());
@@ -66,8 +66,8 @@ public class ClienteService {
             endereco.setEndEstado(objDto.getEndEstado());
             endereco.setEndCidade(objDto.getEndCidade());
 
-            //Atualiza o contato
-            Contato contato = entity.getContatos().get(0);
+            // Atualiza o contato (pega o primeiro contato do Set)
+            Contato contato = entity.getContatos().iterator().next();
 
             contato.setConCelular(objDto.getConCelular());
             contato.setConEmail(objDto.getConEmail());
@@ -110,7 +110,7 @@ public class ClienteService {
     public ClienteDTO toNewDTO(Cliente obj) {
         ClienteDTO dto = new ClienteDTO();
 
-// Mapeie os atributos comuns entre Cliente e ClienteNewDTO
+        // Mapeie os atributos comuns entre Cliente e ClienteNewDTO
         dto.setCliId(obj.getCliId());
         dto.setCliNome(obj.getCliNome());
         dto.setCliCpf(obj.getCliCpf());
@@ -119,10 +119,8 @@ public class ClienteService {
         dto.setCliEstCivil(obj.getCliEstCivil());
         dto.setCliProfissao(obj.getCliProfissao());
 
-
-
-// Atributos específicos de Endereco
-        Endereco endereco = obj.getEnderecos().get(0);
+        // Atributos específicos de Endereco (primeiro do Set)
+        Endereco endereco = obj.getEnderecos().iterator().next();
         dto.setEndRua(endereco.getEndRua());
         dto.setEndNumero(endereco.getEndNumero());
         dto.setEndCidade(endereco.getEndCidade());
@@ -130,13 +128,14 @@ public class ClienteService {
         dto.setEndEstado(endereco.getEndEstado());
         dto.setEndPais(endereco.getEndPais());
 
-// Atributos específicos de Contato
-        Contato contato = obj.getContatos().get(0);
+        // Atributos específicos de Contato (primeiro do Set)
+        Contato contato = obj.getContatos().iterator().next();
         dto.setConCelular(contato.getConCelular());
         dto.setConTelefoneComercial(contato.getConTelefoneComercial());
         dto.setConEmail(contato.getConEmail());
 
         return dto;
     }
+
 
 }

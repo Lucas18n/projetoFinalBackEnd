@@ -1,11 +1,13 @@
 package org.example.entities;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Cliente implements Serializable {
@@ -15,11 +17,13 @@ public class Cliente implements Serializable {
     @Column(name = "CLI_ID")
     private Long cliId;
 
-    @OneToMany(mappedBy = "endCliente", cascade = CascadeType.ALL)
-    private List<Endereco> enderecos = new ArrayList<>();
+    @OneToMany(mappedBy = "endCliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)  // opcional manter, mas o fetch LAZY já ajuda
+    private Set<Endereco> enderecos = new HashSet<>();
 
-    @OneToMany(mappedBy = "conCliente", cascade = CascadeType.ALL)
-    private List<Contato> contatos = new ArrayList<>();
+    @OneToMany(mappedBy = "conCliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)
+    private Set<Contato> contatos = new HashSet<>();
 
     @Column(name = "CLI_NOME")
     private String cliNome;
@@ -39,8 +43,6 @@ public class Cliente implements Serializable {
     @Column(name = "CLI_EST_CIVIL", nullable = false)
     private String cliEstCivil;
 
-
-
     public Cliente() {
     }
 
@@ -54,37 +56,7 @@ public class Cliente implements Serializable {
         this.cliEstCivil = cliEstCivil;
     }
 
-    public String getCliProfissao() {
-        return cliProfissao;
-    }
-
-    public void setCliProfissao(String cliProfissao) {
-        this.cliProfissao = cliProfissao;
-    }
-
-    public String getCliEstCivil() {
-        return cliEstCivil;
-    }
-
-    public void setCliEstCivil(String cliEstCivil) {
-        this.cliEstCivil = cliEstCivil;
-    }
-
-    public LocalDateTime getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(LocalDateTime dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public Boolean getCliAtivo() {
-        return cliAtivo;
-    }
-
-    public void setCliAtivo(Boolean cliAtivo) {
-        this.cliAtivo = cliAtivo;
-    }
+    // getters e setters
 
     public Long getCliId() {
         return cliId;
@@ -110,19 +82,51 @@ public class Cliente implements Serializable {
         this.cliCpf = cliCpf;
     }
 
-    public List<Endereco> getEnderecos() {
+    public LocalDateTime getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDateTime dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public Boolean getCliAtivo() {
+        return cliAtivo;
+    }
+
+    public void setCliAtivo(Boolean cliAtivo) {
+        this.cliAtivo = cliAtivo;
+    }
+
+    public String getCliProfissao() {
+        return cliProfissao;
+    }
+
+    public void setCliProfissao(String cliProfissao) {
+        this.cliProfissao = cliProfissao;
+    }
+
+    public String getCliEstCivil() {
+        return cliEstCivil;
+    }
+
+    public void setCliEstCivil(String cliEstCivil) {
+        this.cliEstCivil = cliEstCivil;
+    }
+
+    public Set<Endereco> getEnderecos() {
         return enderecos;
     }
 
-    public void setEnderecos(List<Endereco> enderecos) {
+    public void setEnderecos(Set<Endereco> enderecos) {
         this.enderecos = enderecos;
     }
 
-    public List<Contato> getContatos() {
+    public Set<Contato> getContatos() {
         return contatos;
     }
 
-    public void setContatos(List<Contato> contatos) {
+    public void setContatos(Set<Contato> contatos) {
         this.contatos = contatos;
     }
 }
