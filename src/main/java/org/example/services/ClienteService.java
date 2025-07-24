@@ -30,9 +30,14 @@ public class ClienteService {
     }
 
     public Cliente findById(Long id) {
-        Optional<Cliente> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+        Cliente cliente = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+        // força carregamento das coleções LAZY para endereço e contato
+        cliente.getEnderecos().size();
+        cliente.getContatos().size();
+        return cliente;
     }
+
 
     public Cliente insert(Cliente obj) {
        try {
