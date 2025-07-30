@@ -25,11 +25,11 @@ public class Contato implements Serializable {
     private Fornecedor conFornecedor;  // ou o nome que você usa aqui deve ser igual ao mappedBy
 
 
-    @Pattern(regexp = "\\(\\d{2}\\)\\d{5}-\\d{4}", message = "Celular deve estar no formato (xx)xxxxx-xxxx")
-    @Column(name = "CON_CELULAR", length = 14)
+
+    @Column(name = "CON_CELULAR", length = 17)
     private String conCelular;
 
-    @Column(name = "CON_TELEFONE_COMERCIAL", length = 14)
+    @Column(name = "CON_TELEFONE_COMERCIAL", length = 17)
     private String conTelefoneComercial;
 
     @Column(length = 55, name = "CON_EMAIL")

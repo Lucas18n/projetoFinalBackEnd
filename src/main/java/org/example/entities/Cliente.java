@@ -24,7 +24,7 @@ public class Cliente implements Serializable {
     @Column(name = "CLI_NOME")
     private String cliNome;
 
-    @Column(name = "CLI_CPF", length = 11)
+    @Column(name = "CLI_CPF", length = 14)
     private String cliCpf;
 
     @Column(name = "CLI_DATA_NAS", nullable = false)
