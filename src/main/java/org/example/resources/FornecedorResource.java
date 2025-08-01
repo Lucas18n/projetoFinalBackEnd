@@ -31,6 +31,14 @@ public class FornecedorResource {
         return ResponseEntity.ok().body(listDto);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<FornecedorDTO> findById(@PathVariable Long id) {
+        Fornecedor fornecedor = fornecedorService.findById(id);
+        FornecedorDTO dto = fornecedorService.toNewDTO(fornecedor);
+        return ResponseEntity.ok().body(dto);
+    }
+
+
 
     @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody FornecedorDTO objDto) {

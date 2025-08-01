@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FornecedorService {
@@ -27,8 +26,14 @@ public class FornecedorService {
     }
 
     public Fornecedor findById(Long id) {
-        Optional<Fornecedor> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+        Fornecedor fornecedor = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+
+        // Força carregamento das coleções LAZY
+        fornecedor.getEnderecos().size();
+        fornecedor.getContatos().size();
+
+        return fornecedor;
     }
 
     public Fornecedor insert(Fornecedor obj) {
@@ -41,36 +46,37 @@ public class FornecedorService {
     }
 
     public Fornecedor update(Long id, FornecedorDTO objDto) {
-        Fornecedor entity = findById(id);
+        try {
+            Fornecedor entity = findById(id);
 
-        // Atualiza campos simples
-        entity.setForNomeFantasia(objDto.getForNomeFantasia());
-        entity.setForCnpj(objDto.getForCnpj());
+            // Atualiza dados básicos
+            entity.setForNomeFantasia(objDto.getForNomeFantasia());
+            entity.setForCnpj(objDto.getForCnpj());
+            entity.setForRazaoSocial(objDto.getForRazaoSocial());
+            entity.setForResponsavel(objDto.getForResponsavel());
+            entity.setForTipoEmpresa(objDto.getForTipoEmpresa());
+            entity.setForAtivo(objDto.getForAtivo());
 
-        //Atualiza o endereço do cliente
-        Endereco endereco = entity.getEnderecos().get(0);
+            // Atualiza Endereço (assumindo apenas um)
+            Endereco endereco = entity.getEnderecos().iterator().next();
+            endereco.setEndRua(objDto.getEndRua());
+            endereco.setEndNumero(objDto.getEndNumero());
+            endereco.setEndCidade(objDto.getEndCidade());
+            endereco.setEndCep(objDto.getEndCep());
+            endereco.setEndEstado(objDto.getEndEstado());
+            endereco.setEndPais(objDto.getEndPais());
 
-        //Assumindo que há apenas um endereço por cliente
-        endereco.setEndRua(objDto.getEndRua());
-        endereco.setEndPais(objDto.getEndPais());
-        endereco.setEndCep(objDto.getEndCep());
-        endereco.setEndNumero(objDto.getEndNumero());
-        endereco.setEndEstado(objDto.getEndEstado());
-        endereco.setEndCidade(objDto.getEndCidade());
+            // Atualiza Contato (assumindo apenas um)
+            Contato contato = entity.getContatos().iterator().next();
+            contato.setConCelular(objDto.getConCelular());
+            contato.setConTelefoneComercial(objDto.getConTelefoneComercial());
+            contato.setConEmail(objDto.getConEmail());
 
-        //Atualiza o contato
-        Contato contato = entity.getContatos().get(0);
-
-        contato.setConCelular(objDto.getConCelular());
-        contato.setConEmail(objDto.getConEmail());
-        contato.setConTelefoneComercial(objDto.getConTelefoneComercial());
-
-
-
-        return repository.save(entity);
+            return repository.save(entity);
+        } catch (DataIntegrityViolationException e) {
+            throw new ValueBigForAtributeException(e.getMessage());
+        }
     }
-
-
 
     public void deleteFornecedor(Long id) {
         try {
@@ -81,8 +87,6 @@ public class FornecedorService {
     }
 
     public Fornecedor fromDTO(FornecedorDTO objDto) {
-        System.out.println("Criando fornecedor com nome fantasia: " + objDto.getForNomeFantasia());
-
         Fornecedor fornecedor = new Fornecedor(
                 null,
                 objDto.getForNomeFantasia(),
@@ -93,16 +97,14 @@ public class FornecedorService {
                 objDto.getForAtivo()
         );
 
-        // Inicializa as listas para evitar NullPointerException
+        Endereco endereco = new Endereco(null, fornecedor, objDto.getEndRua(), objDto.getEndNumero(),
+                objDto.getEndCidade(), objDto.getEndCep(), objDto.getEndPais(), objDto.getEndEstado());
+
+        Contato contato = new Contato(null, fornecedor, objDto.getConCelular(),
+                objDto.getConTelefoneComercial(), objDto.getConEmail());
+
         fornecedor.setEnderecos(new ArrayList<>());
         fornecedor.setContatos(new ArrayList<>());
-
-        Endereco endereco = new Endereco(null, fornecedor, objDto.getEndRua(), objDto.getEndNumero(),
-                objDto.getEndCidade(), objDto.getEndCep(), objDto.getEndPais(),
-                objDto.getEndEstado());
-
-        Contato contato = new Contato(null, fornecedor, objDto.getConCelular(), objDto.getConTelefoneComercial(),
-                objDto.getConEmail());
 
         fornecedor.getEnderecos().add(endereco);
         fornecedor.getContatos().add(contato);
@@ -110,12 +112,9 @@ public class FornecedorService {
         return fornecedor;
     }
 
-
-
-
-
     public FornecedorDTO toNewDTO(Fornecedor obj) {
         FornecedorDTO dto = new FornecedorDTO();
+
         dto.setForId(obj.getForId());
         dto.setForNomeFantasia(obj.getForNomeFantasia());
         dto.setForCnpj(obj.getForCnpj());
@@ -124,9 +123,8 @@ public class FornecedorService {
         dto.setForTipoEmpresa(obj.getForTipoEmpresa());
         dto.setForAtivo(obj.getForAtivo());
 
-        // Supondo que só exista um endereço por fornecedor
-        if (obj.getEnderecos() != null && !obj.getEnderecos().isEmpty()) {
-            Endereco end = obj.getEnderecos().get(0);
+        if (!obj.getEnderecos().isEmpty()) {
+            Endereco end = obj.getEnderecos().iterator().next();
             dto.setEndRua(end.getEndRua());
             dto.setEndNumero(end.getEndNumero());
             dto.setEndCidade(end.getEndCidade());
@@ -135,9 +133,8 @@ public class FornecedorService {
             dto.setEndPais(end.getEndPais());
         }
 
-        // Supondo que só exista um contato por fornecedor
-        if (obj.getContatos() != null && !obj.getContatos().isEmpty()) {
-            Contato con = obj.getContatos().get(0);
+        if (!obj.getContatos().isEmpty()) {
+            Contato con = obj.getContatos().iterator().next();
             dto.setConCelular(con.getConCelular());
             dto.setConTelefoneComercial(con.getConTelefoneComercial());
             dto.setConEmail(con.getConEmail());
@@ -145,5 +142,4 @@ public class FornecedorService {
 
         return dto;
     }
-
 }
