@@ -19,7 +19,7 @@ public class Fornecedor implements Serializable {
     private String forNomeFantasia;
 
     @NotBlank
-    @Column(name = "FOR_CNPJ", nullable = false, length = 14)
+    @Column(name = "FOR_CNPJ", nullable = false, length = 20)
     private String forCnpj;
 
     @NotBlank
